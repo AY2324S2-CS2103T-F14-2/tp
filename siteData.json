@@ -115,6 +115,9 @@
       "headings": {
         "clinicmate-user-guide": "ClinicMate User Guide",
         "quick-start": "Quick start",
+        "prerequisites": "Prerequisites",
+        "setting-up": "Setting up",
+        "running-the-application": "Running the application",
         "features": "Features",
         "viewing-help-help": "Viewing help : help",
         "adding-a-person-add": "Adding a person: add",
