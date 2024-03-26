@@ -50,8 +50,12 @@
         "storage-component": "Storage component",
         "common-classes": "Common classes",
         "implementation": "Implementation",
-        "proposed-undo-redo-feature": "[Proposed] Undo/redo feature",
-        "proposed-data-archiving": "[Proposed] Data archiving",
+        "add-feature": "Add feature",
+        "add-replace-note-feature": "Add/replace note feature",
+        "find-feature": "Find feature",
+        "delete-feature": "Delete feature",
+        "edit-feature": "Edit feature",
+        "proposed-show-feature": "[Proposed] Show feature",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
         "appendix-requirements": "Appendix: Requirements",
         "product-scope": "Product scope",
@@ -61,8 +65,11 @@
         "glossary": "Glossary",
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
         "launch-and-shutdown": "Launch and shutdown",
+        "adding-a-person": "Adding a person",
         "deleting-a-person": "Deleting a person",
-        "saving-data": "Saving data"
+        "adding-note-to-a-person": "Adding note to a person",
+        "finding-a-person": "Finding a person",
+        "editing-a-person": "Editing a person"
       },
       "headingKeywords": {}
     },
