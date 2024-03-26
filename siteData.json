@@ -106,7 +106,7 @@
       "src": "UserGuide.md",
       "title": "User Guide",
       "headings": {
-        "clinic-mate-user-guide": "Clinic Mate User Guide",
+        "clinicmate-user-guide": "ClinicMate User Guide",
         "quick-start": "Quick start",
         "features": "Features",
         "viewing-help-help": "Viewing help : help",
@@ -114,6 +114,7 @@
         "adding-a-note-addnote": "Adding a note : addnote",
         "locating-persons-by-ic-number-find": "Locating persons by ic number: find",
         "deleting-a-person-delete": "Deleting a person : delete",
+        "listing-all-entries-list": "Listing all entries : list",
         "clearing-all-entries-clear": "Clearing all entries : clear",
         "exiting-the-program-exit": "Exiting the program : exit",
         "saving-the-data": "Saving the data",
