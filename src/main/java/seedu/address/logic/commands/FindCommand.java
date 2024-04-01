@@ -6,6 +6,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.person.IdentityCardNumberMatchesPredicate;
+import seedu.address.model.person.Person;
 
 /**
  * Finds and lists all persons in address book whose IC matches the argument IC.
@@ -20,6 +21,8 @@ public class FindCommand extends Command {
             + "Parameters: IC (must be a valid identity card number) \n"
             + "Example: " + COMMAND_WORD + " t1234567A";
 
+    private static Person foundPerson = null;
+
     private final IdentityCardNumberMatchesPredicate predicate;
 
     public FindCommand(IdentityCardNumberMatchesPredicate predicate) {
@@ -31,8 +34,17 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         model.setDisplayNoteAsFirstFilteredPerson();
+
+        if (model.getFilteredPersonList().size() == 1) {
+            foundPerson = model.getFilteredPersonList().get(0);
+        }
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+    }
+
+    public static Person getFoundPerson() {
+        return foundPerson;
     }
 
     @Override

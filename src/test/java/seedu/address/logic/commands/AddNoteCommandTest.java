@@ -50,6 +50,70 @@ public class AddNoteCommandTest {
                 new IdentityCardNumberMatchesPredicate(personToEdit.getIdentityCardNumber()),
                 new Note("new note"), false).generateSuccessMessage(personToEdit));
     }
+    @Test
+    public void isNoteChanged_noteChanged_returnsTrue() {
+        // Setup
+        Person person = new PersonBuilder().withNote("old note").build();
+        Note newNote = new Note("new note");
+
+        // Action
+        boolean isChanged = new AddNoteCommand(
+                new IdentityCardNumberMatchesPredicate(person.getIdentityCardNumber()),
+                newNote, false).isNoteChanged(person, newNote);
+
+        // Verify
+        assertTrue(isChanged);
+    }
+
+    @Test
+    public void isNoteChanged_noteNotChanged_returnsFalse() {
+        // Setup
+        Person person = new PersonBuilder().withNote("same note").build();
+        Note sameNote = new Note("same note");
+
+        // Action
+        boolean isChanged = new AddNoteCommand(
+                new IdentityCardNumberMatchesPredicate(person.getIdentityCardNumber()),
+                sameNote, false).isNoteChanged(person, sameNote);
+
+        // Verify
+        assertFalse(isChanged);
+    }
+
+    @Test
+    public void execute_noteAdded_success() throws CommandException {
+        // Setup
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Person person = model.getFilteredPersonList().get(0);
+        AddNoteCommand command = new AddNoteCommand(
+                new IdentityCardNumberMatchesPredicate(person.getIdentityCardNumber()),
+                new Note("new note"), false);
+
+        // Action
+        CommandResult result = command.execute(model);
+
+        // Verify
+        assertEquals(String.format(AddNoteCommand.MESSAGE_MODIFY_NOTE_SUCCESS,
+                person.getName(), person.getIdentityCardNumber()), result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_noteAppended_success() throws CommandException {
+        // Setup
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Person person = model.getFilteredPersonList().get(0);
+        Note originalNote = person.getNote();
+        AddNoteCommand command = new AddNoteCommand(
+                new IdentityCardNumberMatchesPredicate(person.getIdentityCardNumber()),
+                new Note("new note"), false);
+
+        // Action
+        command.execute(model);
+
+        // Verify
+        Person updatedPerson = model.getFilteredPersonList().get(0);
+        assertEquals(originalNote.append("\nnew note").toString(), updatedPerson.getNote().toString());
+    }
 
     @Test
     public void equals() {
