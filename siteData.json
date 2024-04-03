@@ -112,7 +112,8 @@
       "src": "UserGuide.md",
       "title": "User Guide",
       "headings": {
-        "clinicmate-user-guide": "ClinicMate User Guide",
+        "welcome-to-clinicmate": "Welcome to ClinicMate!",
+        "guide-usage": "Guide Usage",
         "quick-start": "Quick start",
         "prerequisites": "Prerequisites",
         "setting-up": "Setting up",
