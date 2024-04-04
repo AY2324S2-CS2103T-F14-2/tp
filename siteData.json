@@ -125,6 +125,7 @@
         "locating-persons-by-ic-number-find": "Locating persons by ic number: find",
         "changing-the-displayed-note-show": "Changing the displayed note: show",
         "deleting-a-person-delete": "Deleting a person : delete",
+        "editing-a-person-edit": "Editing a person : edit",
         "listing-all-entries-list": "Listing all entries : list",
         "clearing-all-entries-clear": "Clearing all entries : clear",
         "exiting-the-program-exit": "Exiting the program : exit",
