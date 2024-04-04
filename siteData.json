@@ -123,6 +123,7 @@
         "adding-a-person-add": "Adding a person: add",
         "adding-a-note-addnote": "Adding a note : addnote",
         "locating-persons-by-ic-number-find": "Locating persons by ic number: find",
+        "changing-the-displayed-note-show": "Changing the displayed note: show",
         "deleting-a-person-delete": "Deleting a person : delete",
         "listing-all-entries-list": "Listing all entries : list",
         "clearing-all-entries-clear": "Clearing all entries : clear",
