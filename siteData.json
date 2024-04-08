@@ -118,6 +118,10 @@
         "prerequisites": "Prerequisites",
         "setting-up": "Setting up",
         "running-the-application": "Running the application",
+        "gui-overview": "GUI Overview",
+        "cli-overview": "CLI Overview",
+        "command-format": "Command Format",
+        "example-command-addnote": "Example Command: addnote",
         "existing-features": "Existing Features",
         "navigation-and-assistance-functions": "Navigation and Assistance Functions",
         "viewing-help-help": "Viewing help : help",
@@ -137,6 +141,9 @@
         "editing-the-data-file": "Editing the data file",
         "faq": "FAQ",
         "appendix-planned-enhancements": "Appendix: Planned Enhancements",
+        "glossary": "Glossary",
+        "definitions-of-key-terms": "Definitions of Key Terms",
+        "parameters-description": "Parameters Description",
         "command-summary": "Command summary"
       },
       "headingKeywords": {}
