@@ -93,6 +93,25 @@ mark {
   border-left: 1px solid lightgrey;
 }
 
+@media screen {
+  .nav-component #table-of-contents {
+    display: none;
+  }
+
+  #page-nav a[href="#table-of-contents"]{
+    display: none;
+  }
+
+  #table-of-contents {
+    display: none;
+  }
+
+  /* Hide print-only content for screen media */
+  .print-only {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 1299.98px) {
   #page-nav {
     display: none;
@@ -131,6 +150,11 @@ mark {
   }
 
   #page-nav {
+    display: none;
+  }
+
+  /* Hide generated-only content for print media */
+  .generated-only {
     display: none;
   }
 

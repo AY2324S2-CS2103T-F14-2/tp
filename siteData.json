@@ -113,7 +113,10 @@
       "title": "User Guide",
       "headings": {
         "welcome-to-clinicmate": "Welcome to ClinicMate!",
+        "table-of-contents": "Table of Contents",
         "guide-usage": "Guide Usage",
+        "clinicmate-beginner": "ClinicMate Beginner?",
+        "seasoned-clinicmate-user": "Seasoned ClinicMate User?",
         "quick-start": "Quick start",
         "prerequisites": "Prerequisites",
         "setting-up": "Setting up",
