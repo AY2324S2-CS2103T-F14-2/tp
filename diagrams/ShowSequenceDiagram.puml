@@ -49,6 +49,12 @@ deactivate AddressBookParser
 LogicManager -> ShowCommand : execute(m)
 activate ShowCommand
 
+ShowCommand -> Model : getPersonIfExists(predicate)
+activate Model
+
+Model --> ShowCommand
+deactivate Model
+
 ShowCommand -> Model : setDisplayNote(T0123456A)
 activate Model
 
