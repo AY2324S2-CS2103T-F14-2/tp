@@ -55,6 +55,8 @@
         "find-feature": "Find feature",
         "delete-feature": "Delete feature",
         "edit-feature": "Edit feature",
+        "show-feature": "Show feature",
+        "notedisplay-ui-component": "NoteDisplay (UI Component)",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
         "appendix-a-requirements": "Appendix A: Requirements",
         "product-scope": "Product scope",

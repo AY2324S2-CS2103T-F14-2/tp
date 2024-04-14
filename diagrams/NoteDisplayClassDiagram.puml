@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+    Class MainWindow
+    Class NoteDisplay {
+       setNoteToUser(note: String) : void
+    }
+    Class "{abstract}\nUiPart" as UiPart
+}
+package Model <<Rectangle>> {
+    Class HiddenModel #FFFFFF
+}
+
+MainWindow *-right-> "1" NoteDisplay
+NoteDisplay -right..> Model
+MainWindow -down-|> UiPart
+NoteDisplay -down-|> UiPart
+
+@enduml

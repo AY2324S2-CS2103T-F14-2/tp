@@ -8,15 +8,11 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([command successful])
-    :Displays contact in
-    side window;
-else ([command unsuccessful])
-    :Error messages;
-    :Edit command
-    accordingly;
-    :Successfully displays
-    contact in side window;
+if () then ([show `IC_NUMBER` command])
+    :Updates notes of specific patient in Patient Notes Display;
+else ([show command])
+    :Clears notes in Patient Notes Display;
+
 endif
 stop
 @enduml

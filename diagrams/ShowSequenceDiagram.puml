@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ShowCommandParser" as ShowCommandParser LOGIC_COLOR
+participant "s:ShowCommand" as ShowCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("show T0123456A")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("show T0123456A")
+activate AddressBookParser
+
+create ShowCommandParser
+AddressBookParser -> ShowCommandParser
+activate ShowCommandParser
+
+ShowCommandParser --> AddressBookParser
+deactivate ShowCommandParser
+
+AddressBookParser -> ShowCommandParser : parse("T0123456A")
+activate ShowCommandParser
+
+create ShowCommand
+ShowCommandParser -> ShowCommand : new ShowCommand.createShowCommand(i)
+activate ShowCommand
+
+ShowCommand --> ShowCommandParser :
+deactivate ShowCommand
+
+ShowCommandParser --> AddressBookParser : s
+deactivate ShowCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ShowCommandParser -[hidden]-> AddressBookParser
+destroy ShowCommandParser
+
+AddressBookParser --> LogicManager : s
+deactivate AddressBookParser
+
+LogicManager -> ShowCommand : execute(m)
+activate ShowCommand
+
+ShowCommand -> Model : setDisplayNote(T0123456A)
+activate Model
+
+Model --> ShowCommand
+deactivate Model
+
+create CommandResult
+ShowCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ShowCommand
+deactivate CommandResult
+
+ShowCommand --> LogicManager : r
+deactivate ShowCommand
+destroy ShowCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
