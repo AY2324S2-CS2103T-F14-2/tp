@@ -51,6 +51,7 @@ StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
 
 PersonCard ..> Model
+NoteDisplay ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 

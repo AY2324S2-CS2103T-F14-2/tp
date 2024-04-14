@@ -9,9 +9,9 @@ start
 'diamond we place it as the true branch instead.
 
 if () then ([show `IC_NUMBER` command])
-    :Updates notes of specific patient in Patient Notes Display;
+    :Updates notes of specific patient in Patient Notes Panel;
 else ([show command])
-    :Clears notes in Patient Notes Display;
+    :Clears notes in Patient Notes Panel;
 
 endif
 stop
