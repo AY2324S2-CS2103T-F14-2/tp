@@ -8,15 +8,21 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([command successful])
-    :Add new note to
-    specified patient;
-else ([command unsuccessful])
-    :Error messages;
-    :Edit command
-    accordingly;
-    :Successfully adds
-    new note;
+if () then ([valid user input])
+    if () then ([with -replace flag])
+        :Successfully replaces original
+        note with new note;
+        :System displays the new note
+        on patient list panel;
+    else ([without -replace flag])
+        :Successfully appends
+        new note to original note;
+        :System displays the updated
+        note on patient list panel;
+    endif
+else ([else])
+    :System displays specific
+    error messages;
 endif
 stop
 @enduml

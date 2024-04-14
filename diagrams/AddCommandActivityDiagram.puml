@@ -8,15 +8,19 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([command successful])
-    :Save new contact to
-    addressbook;
-else ([command unsuccessful])
-    :Error messages;
-    :Edit command
-    accordingly;
-    :Successfully saves
-    new contact;
+if () then ([user input is valid])
+    if () then ([patient already exists])
+        :System displays patient
+        already exists error message;
+    else ([else])
+        :System inserts patient to
+        list of patients;
+        :System displays added patient
+        in patient list panel;
+    endif
+else ([else])
+    :System displays specific
+    error message;
 endif
 stop
 @enduml
