@@ -6,6 +6,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant "p :IdentityCardNumberMatchesPredicate" as IdentityCardNumberMatchesPredicate LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -30,11 +31,18 @@ deactivate DeleteCommandParser
 AddressBookParser -> DeleteCommandParser : parse("S0123456A")
 activate DeleteCommandParser
 
+create IdentityCardNumberMatchesPredicate
+DeleteCommandParser -> IdentityCardNumberMatchesPredicate
+activate IdentityCardNumberMatchesPredicate
+
+IdentityCardNumberMatchesPredicate --> DeleteCommandParser
+deactivate IdentityCardNumberMatchesPredicate
+
 create DeleteCommand
-DeleteCommandParser -> DeleteCommand
+DeleteCommandParser -> DeleteCommand : new DeleteCommand(p)
 activate DeleteCommand
 
-DeleteCommand --> DeleteCommandParser :
+DeleteCommand --> DeleteCommandParser : d
 deactivate DeleteCommand
 
 DeleteCommandParser --> AddressBookParser : d
@@ -48,6 +56,12 @@ deactivate AddressBookParser
 
 LogicManager -> DeleteCommand : execute(m)
 activate DeleteCommand
+
+DeleteCommand -> Model : getPersonIfExists(S0123456A)
+activate Model
+
+Model --> DeleteCommand
+deactivate Model
 
 DeleteCommand -> Model : deletePerson(S0123456A)
 activate Model
@@ -64,6 +78,10 @@ deactivate CommandResult
 
 DeleteCommand --> LogicManager : r
 deactivate DeleteCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommand -[hidden]-> LogicManager
+destroy DeleteCommand
 
 [<--LogicManager
 deactivate LogicManager

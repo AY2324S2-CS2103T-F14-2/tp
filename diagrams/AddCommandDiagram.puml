@@ -6,7 +6,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
-participant "d:AddCommand" as AddCommand LOGIC_COLOR
+participant "p:Person" as Person LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -14,10 +15,17 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("add n/John Doe p/12345678 \n e/john@mail.com i/T0123456A ag/12 s/Male \n a/John street, block 123, #01-01")
+note left of LogicManager
+  In the diagram, params refers to the following:
+  "n\John Doe p\12345678
+   e\john@mail.com i\T0123456A ag\12 s\M
+    a\John street, block 123, #01-01"
+end note
+
+[-> LogicManager : execute("add params")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("add n/John Doe p/12345678 \n e/john@mail.com i/T0123456A ag/12 s/Male \n a/John street, block 123, #01-01")
+LogicManager -> AddressBookParser : parseCommand("add params")
 activate AddressBookParser
 
 create AddCommandParser
@@ -27,14 +35,21 @@ activate AddCommandParser
 AddCommandParser --> AddressBookParser
 deactivate AddCommandParser
 
-AddressBookParser -> AddCommandParser : parse("add n/John Doe p/12345678 \n e/john@mail.com i/T0123456A ag/12 s/Male \n a/John street, block 123, #01-01")
+AddressBookParser -> AddCommandParser : parse("params")
 activate AddCommandParser
 
+create Person
+AddCommandParser -> Person:
+activate Person
+
+Person --> AddCommandParser
+deactivate Person
+
 create AddCommand
-AddCommandParser -> AddCommand
+AddCommandParser -> AddCommand : new AddCommand(p)
 activate AddCommand
 
-AddCommand --> AddCommandParser :
+AddCommand --> AddCommandParser : a
 deactivate AddCommand
 
 AddCommandParser --> AddressBookParser : a
@@ -49,7 +64,13 @@ deactivate AddressBookParser
 LogicManager -> AddCommand : execute(m)
 activate AddCommand
 
-AddCommand -> Model : setPerson(T0123456A, \n new Person(John Doe, 12345678, ...))
+AddCommand -> Model : hasPerson(p)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+AddCommand -> Model : addPerson(p)
 activate Model
 
 Model --> AddCommand
@@ -64,6 +85,10 @@ deactivate CommandResult
 
 AddCommand --> LogicManager : r
 deactivate AddCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommand -[hidden]-> LogicManager
+destroy AddCommand
 
 [<--LogicManager
 deactivate LogicManager

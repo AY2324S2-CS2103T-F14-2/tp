@@ -6,7 +6,9 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
-participant "d:EditCommand" as EditCommand LOGIC_COLOR
+participant "i:IdentityCardNumberMatchesPredicate" as IdentityCardNumberPredicate LOGIC_COLOR
+participant "d:EditPersonDescriptor" as EditPersonDescriptor LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -14,10 +16,15 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("edit T0123456A p/23456789")
+note left of LogicManager
+  In the diagram, params refers to the following:
+  "T0123456A p\23456789"
+end note
+
+[-> LogicManager : execute("edit params")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("edit T0123456A p/23456789")
+LogicManager -> AddressBookParser : parseCommand("edit params")
 activate AddressBookParser
 
 create EditCommandParser
@@ -27,14 +34,28 @@ activate EditCommandParser
 EditCommandParser --> AddressBookParser
 deactivate EditCommandParser
 
-AddressBookParser -> EditCommandParser : parse("p/23456789")
+AddressBookParser -> EditCommandParser : parse("params")
 activate EditCommandParser
 
+create IdentityCardNumberPredicate
+EditCommandParser -> IdentityCardNumberPredicate:
+activate IdentityCardNumberPredicate
+
+IdentityCardNumberPredicate --> EditCommandParser
+deactivate IdentityCardNumberPredicate
+
+create EditPersonDescriptor
+EditCommandParser -> EditPersonDescriptor:
+activate EditPersonDescriptor
+
+EditPersonDescriptor --> EditCommandParser
+deactivate EditPersonDescriptor
+
 create EditCommand
-EditCommandParser -> EditCommand
+EditCommandParser -> EditCommand : new EditCommand(i, d)
 activate EditCommand
 
-EditCommand --> EditCommandParser :
+EditCommand --> EditCommandParser : e
 deactivate EditCommand
 
 EditCommandParser --> AddressBookParser : e
@@ -49,7 +70,25 @@ deactivate AddressBookParser
 LogicManager -> EditCommand : execute(m)
 activate EditCommand
 
-EditCommand -> Model : setPerson(T0123456A, \n new Person(John Doe, 23456789, ...))
+EditCommand -> Model : getPersonIfExists(...)
+activate Model
+
+Model --> EditCommand
+deactivate Model
+
+EditCommand -> Model : hasPerson(...)
+activate Model
+
+Model --> EditCommand
+deactivate Model
+
+EditCommand -> Model : setPerson(...)
+activate Model
+
+Model --> EditCommand
+deactivate Model
+
+EditCommand -> Model : updateFilteredPersonList(...)
 activate Model
 
 Model --> EditCommand
@@ -64,6 +103,10 @@ deactivate CommandResult
 
 EditCommand --> LogicManager : r
 deactivate EditCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditCommand -[hidden]-> LogicManager
+destroy EditCommand
 
 [<--LogicManager
 deactivate LogicManager

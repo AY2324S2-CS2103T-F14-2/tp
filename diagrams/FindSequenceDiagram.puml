@@ -6,6 +6,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "p :IdentityCardNumberMatchesPredicate" as IdentityCardNumberMatchesPredicate LOGIC_COLOR
 participant "f:FindCommand" as FindCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -30,11 +31,18 @@ deactivate FindCommandParser
 AddressBookParser -> FindCommandParser : parse("S0123456A")
 activate FindCommandParser
 
+create IdentityCardNumberMatchesPredicate
+FindCommandParser -> IdentityCardNumberMatchesPredicate
+activate IdentityCardNumberMatchesPredicate
+
+IdentityCardNumberMatchesPredicate --> FindCommandParser
+deactivate IdentityCardNumberMatchesPredicate
+
 create FindCommand
-FindCommandParser -> FindCommand
+FindCommandParser -> FindCommand : new FindCommand(p)
 activate FindCommand
 
-FindCommand --> FindCommandParser :
+FindCommand --> FindCommandParser : f
 deactivate FindCommand
 
 FindCommandParser --> AddressBookParser : f
@@ -64,6 +72,10 @@ deactivate CommandResult
 
 FindCommand --> LogicManager : r
 deactivate FindCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCommand -[hidden]-> LogicManager
+destroy FindCommand
 
 [<--LogicManager
 deactivate LogicManager

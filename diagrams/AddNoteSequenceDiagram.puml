@@ -6,7 +6,10 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":AddNoteCommandParser" as AddNoteCommandParser LOGIC_COLOR
-participant "n:AddNoteCommand" as AddNoteCommand LOGIC_COLOR
+participant "i:IdentityCardNumberMatchesPredicate" as IdentityCardNumberPredicate LOGIC_COLOR
+participant "n:Note" as Note LOGIC_COLOR
+participant "a:AddNoteCommand" as AddNoteCommand LOGIC_COLOR
+participant "p:Person" as Person LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -14,10 +17,15 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("addnote \n i/T0123456A n/Covid")
+note left of LogicManager
+  In the diagram, params refers to the following:
+  "T0123456A n\Covid"
+end note
+
+[-> LogicManager : execute("addnote params")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("addnote \n i/T0123456A n/Covid")
+LogicManager -> AddressBookParser : parseCommand("addnote params")
 activate AddressBookParser
 
 create AddNoteCommandParser
@@ -27,29 +35,68 @@ activate AddNoteCommandParser
 AddNoteCommandParser --> AddressBookParser
 deactivate AddNoteCommandParser
 
-AddressBookParser -> AddNoteCommandParser : parse("i/T0123456A n/Covid")
+AddressBookParser -> AddNoteCommandParser : parse("params")
 activate AddNoteCommandParser
 
+create IdentityCardNumberPredicate
+AddNoteCommandParser -> IdentityCardNumberPredicate:
+activate IdentityCardNumberPredicate
+
+IdentityCardNumberPredicate --> AddNoteCommandParser
+deactivate IdentityCardNumberPredicate
+
+create Note
+AddNoteCommandParser -> Note:
+activate Note
+
+Note --> AddNoteCommandParser
+deactivate Note
+
 create AddNoteCommand
-AddNoteCommandParser -> AddNoteCommand
+AddNoteCommandParser -> AddNoteCommand : new AddNoteCommand(i, n, false)
 activate AddNoteCommand
 
-AddNoteCommand --> AddNoteCommandParser :
+AddNoteCommand --> AddNoteCommandParser : a
 deactivate AddNoteCommand
 
-AddNoteCommandParser --> AddressBookParser : n
+AddNoteCommandParser --> AddressBookParser : a
 deactivate AddNoteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 AddNoteCommandParser -[hidden]-> AddressBookParser
 destroy AddNoteCommandParser
 
-AddressBookParser --> LogicManager : n
+AddressBookParser --> LogicManager : a
 deactivate AddressBookParser
 
 LogicManager -> AddNoteCommand : execute(m)
 activate AddNoteCommand
 
-AddNoteCommand -> Model : setPerson(T0123456A, \n new Person(..., Covid, ...))
+create Person
+AddNoteCommand -> Person:
+activate Person
+
+Person --> AddNoteCommand
+deactivate Person
+
+AddNoteCommand -> Model : getPersonIfExists(...)
+activate Model
+
+Model --> AddNoteCommand
+deactivate Model
+
+AddNoteCommand -> Model : setPerson(...)
+activate Model
+
+Model --> AddNoteCommand
+deactivate Model
+
+AddNoteCommand -> Model : isPersonDisplayed(...)
+activate Model
+
+Model --> AddNoteCommand
+deactivate Model
+
+AddNoteCommand -> Model : setDisplayedNote(...)
 activate Model
 
 Model --> AddNoteCommand
@@ -64,6 +111,10 @@ deactivate CommandResult
 
 AddNoteCommand --> LogicManager : r
 deactivate AddNoteCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddNoteCommand -[hidden]-> LogicManager
+destroy AddNoteCommand
 
 [<--LogicManager
 deactivate LogicManager
