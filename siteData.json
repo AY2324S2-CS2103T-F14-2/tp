@@ -154,7 +154,7 @@
         "data-management-functions": "Data Management Functions",
         "adding-a-person-add": "Adding a person: add",
         "listing-all-entries-list": "Listing all entries : list",
-        "locating-persons-by-ic-number-find": "Locating persons by IC number: find",
+        "finding-person-by-ic-number-find": "Finding person by IC number: find",
         "changing-the-displayed-note-show": "Changing the displayed note: show",
         "editing-a-person-edit": "Editing a person : edit",
         "deleting-a-person-delete": "Deleting a person : delete",
@@ -168,6 +168,7 @@
         "glossary": "Glossary",
         "definitions-of-key-terms": "Definitions of Key Terms",
         "parameters-description": "Parameters Description",
+        "email-format-description": "Email Format Description",
         "command-summary": "Command summary"
       },
       "headingKeywords": {}
