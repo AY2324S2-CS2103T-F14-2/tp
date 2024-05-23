@@ -1,8 +1,6 @@
 name: Build and Pre-release
 
-on:
-  schedule:
-    - cron: '0 15 * * *' # 1500 UTC is 2300 SGT
+on: []
 
 permissions: write-all
 
