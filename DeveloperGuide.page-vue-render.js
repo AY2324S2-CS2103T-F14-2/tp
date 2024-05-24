@@ -878,6 +878,6 @@ with(this){return _c('h4',{attrs:{"id":"challenge-4-modifying-the-code-to-fit-cl
 with(this){return _c('h3',{attrs:{"id":"achievements"}},[_v("Achievements"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#achievements","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.4.0")]),_v(", generated on Mon, 15 Apr 2024, 2:28:18 GMT+8]")])])])}
+with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.5.2")]),_v(", generated on Fri, 24 May 2024, 8:45:15 GMT+8]")])])])}
 }];
   
